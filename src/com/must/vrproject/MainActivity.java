@@ -1,34 +1,35 @@
 package com.must.vrproject;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 public class MainActivity extends Activity {
 
+	ListView list;
+	LazyAdapter adapter;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		ActionBar bar = getActionBar();
+		bar.setTitle("您附近的設施");
+		list = (ListView)findViewById(R.id.listView1);
+		adapter = new LazyAdapter(this, imageUrls);
+		list.setAdapter(adapter);
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		list.setAdapter(null);
+		super.onDestroy();
 	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
+	private String imageUrls[] = {
+            "http://120.105.81.47/login/images/view/1.jpg",
+            "http://120.105.81.47/login/images/view/2.jpg",   
+    };
 }
