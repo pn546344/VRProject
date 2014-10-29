@@ -19,8 +19,9 @@ public class MainActivity extends Activity {
 	private Location loc;
 	private String bestGPS=null,address="";
 	private double latiude=0,longitude=0;				//緯度,經度
+	private String[] item , pic;
 	private String imageUrls[] = {
-            "http://120.105.81.47/login/images/view/1.jpg",
+            "http:/120.105.81.47/login/images/view/1.jpg",
             "http://120.105.81.47/login/images/view/2.jpg",   
     };
 	
@@ -32,7 +33,7 @@ public class MainActivity extends Activity {
 		ActionBar bar = getActionBar();
 		bar.setTitle("您附近的設施");
 		list = (ListView)findViewById(R.id.listView1);
-		adapter = new LazyAdapter(this, imageUrls);
+		
 		
 		lManager = (LocationManager)getSystemService(LOCATION_SERVICE);
 		Criteria criteria = new Criteria();
@@ -45,6 +46,19 @@ public class MainActivity extends Activity {
 			address= "http://120.105.81.47/login/big_android.php?latiude="+latiude+"&longitude="+longitude;
 			Log.i("ttt", "address="+address);
 		}
+		GetBigJson gbJson = new GetBigJson(address);
+		gbJson.start();
+		try {
+			gbJson.join();
+			item = gbJson.getItem();
+			pic = gbJson.getPic();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		adapter = new LazyAdapter(this, pic , item);
+		
 	}
 
 	@Override

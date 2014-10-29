@@ -12,13 +12,14 @@ import android.widget.TextView;
 public class LazyAdapter extends BaseAdapter{
 
 	private Activity activity;
-	private String[] data;
+	private String[] data , item;
     private static LayoutInflater inflater=null;
     public ImageLoader imageLoader; 
     
-    public LazyAdapter(Activity a, String[] d) {
+    public LazyAdapter(Activity a, String[] d , String[] item) {
         activity = a;
         data=d;
+        this.item = item;
         inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         imageLoader=new ImageLoader(activity.getApplicationContext());
     }
@@ -50,7 +51,7 @@ public class LazyAdapter extends BaseAdapter{
  
         TextView text=(TextView)vi.findViewById(R.id.textView1);;
         ImageView image=(ImageView)vi.findViewById(R.id.imageView1);
-        text.setText("item "+position);
+        text.setText(item[position]);
         imageLoader.DisplayImage(data[position], image);
         return vi;
 		
