@@ -124,6 +124,9 @@ public class MainActivity extends Activity implements OnItemClickListener {
 		proDialog.setIndeterminate(true);
 		proDialog.setCancelable(false);			//禁止觸及螢幕就讓prodialog消失
 		proDialog.show();
+		
+		GetSmallJson gsJson = new GetSmallJson(select);
+		gsJson.start();
 	}
 	
 }
